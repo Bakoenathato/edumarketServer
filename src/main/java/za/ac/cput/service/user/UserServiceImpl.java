@@ -1,4 +1,4 @@
-package za.ac.cput.service;
+package za.ac.cput.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,5 +53,13 @@ public class UserServiceImpl implements IUserService {
         return userRepository.findAll();
     }
 
-    
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public User findByFirstName(String firstName) {
+        return userRepository.findByFirstName(firstName);
+    }
 }
