@@ -1,6 +1,7 @@
-package za.ac.cput.service;
+package za.ac.cput.service.user;
 
 import za.ac.cput.domain.User;
+import za.ac.cput.service.IService;
 
 import java.util.List;
 
