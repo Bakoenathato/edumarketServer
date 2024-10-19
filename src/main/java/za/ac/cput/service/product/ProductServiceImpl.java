@@ -3,6 +3,7 @@ package za.ac.cput.service.product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Product;
+import za.ac.cput.domain.User;
 import za.ac.cput.repository.ProductRepository;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class ProductServiceImpl implements IProductService{
 
     @Override
     public Product create(Product product) {
+        if (productRepository.findProductByProductName(product.getProductName()) != null) {
+            throw new IllegalArgumentException("There is already a product with this name please try another one");
+        }
         return productRepository.save(product);
     }
 
@@ -45,6 +49,11 @@ public class ProductServiceImpl implements IProductService{
            throw new IllegalArgumentException("Product with id: " + id + " not found");
        }
     }
+
+    public Product findProductByProductName(String productName) {
+        return productRepository.findProductByProductName(productName);
+    }
+
 
     @Override
     public List<Product> getAll() {

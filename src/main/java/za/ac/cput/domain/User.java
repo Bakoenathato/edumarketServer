@@ -18,7 +18,10 @@ public class User {
     private String password;
     private String email;
     private String phone;
-    private String role;
+    private String residence;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Product> products = new HashSet<>();
@@ -38,6 +41,7 @@ public class User {
         this.phone = builder.phone;
         this.role = builder.role;
         this.products = builder.products;
+        this.residence = builder.residence;
     }
 
     public long getUserId() {
@@ -64,7 +68,11 @@ public class User {
         return phone;
     }
 
-    public String getRole() {
+    public String getResidence() {
+        return residence;
+    }
+
+    public Role getRole() {
         return role;
     }
 
@@ -75,13 +83,14 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-        return getUserId() == user.getUserId() && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPhone(), user.getPhone()) && Objects.equals(getRole(), user.getRole()) && Objects.equals(getProducts(), user.getProducts());
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return userId == user.userId && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(phone, user.phone) && Objects.equals(residence, user.residence) && role == user.role && Objects.equals(products, user.products);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUserId(), getFirstName(), getLastName(), getPassword(), getEmail(), getPhone(), getRole(), getProducts());
+        return Objects.hash(userId, firstName, lastName, password, email, phone, residence, role, products);
     }
 
     @Override
@@ -93,7 +102,8 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", role='" + role + '\'' +
+                ", residence='" + residence + '\'' +
+                ", role=" + role +
                 ", products=" + products +
                 '}';
     }
@@ -105,7 +115,8 @@ public class User {
         private String password;
         private String email;
         private String phone;
-        private String role;
+        private Role role;
+        private String residence;
         private Set<Product> products = new HashSet<>();
 
         public Builder setUserId(long userId) {
@@ -138,8 +149,13 @@ public class User {
             return this;
         }
 
-        public Builder setRole(String role) {
+        public Builder setRole(Role role) {
             this.role = role;
+            return this;
+        }
+
+        public Builder setResidence(String residence) {
+            this.residence = residence;
             return this;
         }
 
@@ -156,6 +172,7 @@ public class User {
             this.email = user.email;
             this.phone = user.phone;
             this.role = user.role;
+            this.residence = user.residence;
             this.products = user.products;
             return this;
         }

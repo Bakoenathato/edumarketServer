@@ -3,9 +3,12 @@ package za.ac.cput.service.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.User;
+import za.ac.cput.dto.LoginDTO;
+import za.ac.cput.dto.LoginResponse;
 import za.ac.cput.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -19,6 +22,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User create(User user) {
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            throw new IllegalArgumentException("There is already a user with this email in the system please try to login");
+        }
         return userRepository.save(user);
     }
 
@@ -61,5 +67,25 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User findByFirstName(String firstName) {
         return userRepository.findByFirstName(firstName);
+    }
+
+    public LoginResponse loginUser(LoginDTO loginDTO) {
+        User user1 = userRepository.findByEmail(loginDTO.getEmail());
+        if (user1 != null) {
+            String password = loginDTO.getPassword();
+            String storedPassword = user1.getPassword();
+            if (password.equals(storedPassword)) {
+                Optional<User> user = userRepository.findOneByEmailAndPassword(loginDTO.getEmail(), storedPassword);
+                if (user.isPresent()) {
+                    return new LoginResponse("Login Success", true);
+                } else {
+                    return new LoginResponse("Login Failed", false);
+                }
+            } else {
+                return new LoginResponse("Password Not Match", false);
+            }
+        } else {
+            return new LoginResponse("Email not exists", false);
+        }
     }
 }
