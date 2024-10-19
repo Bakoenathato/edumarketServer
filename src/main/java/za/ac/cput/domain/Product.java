@@ -16,17 +16,18 @@ public class Product {
     private String productName;
     private String productDescription;
     private double productPrice;
+    private int quantity;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(length = 100000)
     private byte[] productImage;
 
-//    @OneToMany(mappedBy = "product")
-//    private List<Category> categories;
-
     @Enumerated(EnumType.STRING)
     private Categories category;
+
+    @Enumerated(EnumType.STRING)
+    private Condition condition;
 
     @ManyToOne
     @JoinColumn(name = "userId")
@@ -42,6 +43,8 @@ public class Product {
         this.productImage = builder.productImage;
         this.category = builder.category;
         this.user = builder.user;
+        this.quantity = builder.quantity;
+        this.condition = builder.condition;
     }
 
     public long getId() {
@@ -72,16 +75,25 @@ public class Product {
         return user;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public Condition getCondition() {
+        return condition;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Product product)) return false;
-        return getId() == product.getId() && Double.compare(getProductPrice(), product.getProductPrice()) == 0 && Objects.equals(getProductName(), product.getProductName()) && Objects.equals(getProductDescription(), product.getProductDescription()) && Objects.deepEquals(getProductImage(), product.getProductImage()) && getCategory() == product.getCategory() && Objects.equals(getUser(), product.getUser());
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id && Double.compare(productPrice, product.productPrice) == 0 && quantity == product.quantity && Objects.equals(productName, product.productName) && Objects.equals(productDescription, product.productDescription) && Objects.deepEquals(productImage, product.productImage) && category == product.category && condition == product.condition && Objects.equals(user, product.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getProductName(), getProductDescription(), getProductPrice(), Arrays.hashCode(getProductImage()), getCategory(), getUser());
+        return Objects.hash(id, productName, productDescription, productPrice, quantity, Arrays.hashCode(productImage), category, condition, user);
     }
 
     @Override
@@ -91,8 +103,10 @@ public class Product {
                 ", productName='" + productName + '\'' +
                 ", productDescription='" + productDescription + '\'' +
                 ", productPrice=" + productPrice +
+                ", quantity=" + quantity +
                 ", productImage=" + Arrays.toString(productImage) +
                 ", category=" + category +
+                ", condition=" + condition +
                 ", user=" + user +
                 '}';
     }
@@ -105,6 +119,8 @@ public class Product {
         private byte[] productImage;
         private Categories category;
         private User user;
+        private int quantity;
+        private Condition condition;
 
         public Builder setId(long id) {
             this.id = id;
@@ -136,6 +152,16 @@ public class Product {
             return this;
         }
 
+        public Builder setQuantity(int quantity) {
+            this.quantity = quantity;
+            return this;
+        }
+
+        public Builder setCondition(Condition condition) {
+            this.condition = condition;
+            return this;
+        }
+
         public Builder setUser(User user) {
             this.user = user;
             return this;
@@ -149,6 +175,8 @@ public class Product {
             this.productImage = product.productImage;
             this.category = product.category;
             this.user = product.user;
+            this.quantity = product.quantity;
+            this.condition = product.condition;
             return this;
         }
 
