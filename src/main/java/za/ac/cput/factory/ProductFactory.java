@@ -6,8 +6,8 @@ import za.ac.cput.domain.Product;
 import za.ac.cput.util.Helper;
 
 public class ProductFactory {
-    public static Product createProduct(String productName, String productDescription, double productPrice, byte[] productImage, Categories categories, int quantity, Condition condition) {
-        if (Helper.isNullOrEmpty(productName) || Helper.isNullOrEmpty(productDescription) || productPrice < 0 || productImage == null || categories == null || quantity < 0 || condition == null) {
+    public static Product createProduct(String productName, String productDescription, double productPrice, byte[] productImage, Categories categories, int quantity, Condition productCondition) {
+        if (Helper.isNullOrEmpty(productName) || Helper.isNullOrEmpty(productDescription) || productPrice < 0 || productImage == null || categories == null || quantity < 0 || productCondition == null) {
             return null;
         }
 
@@ -18,7 +18,7 @@ public class ProductFactory {
                 .setProductImage(productImage)
                 .setCategory(categories)
                 .setQuantity(quantity)
-                .setCondition(condition)
+                .setProductCondition(productCondition)
                 .build();
     }
 }

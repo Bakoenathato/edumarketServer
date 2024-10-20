@@ -34,11 +34,6 @@ public class UserController {
         return userServiceImpl.read(userId);
     }
 
-//    @PostMapping("/update")
-//    public User update(@RequestBody User user){
-//        return userService.update(user);
-//    }
-
     @GetMapping("/getall")
     public List<User> getall(){
         return userServiceImpl.getAll();
@@ -50,13 +45,4 @@ public class UserController {
         return ResponseEntity.ok(loginResponse);
     }
 
-//    @DeleteMapping("/delete/{userId}")
-//    public ResponseEntity<Void> delete(@PathVariable Long userId) {
-//        try {
-//            userService.delete(userId); // Assuming this service method deletes the user
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // Return 204 if successful
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Return 404 if the user is not found
-//        }
-//    }
 }

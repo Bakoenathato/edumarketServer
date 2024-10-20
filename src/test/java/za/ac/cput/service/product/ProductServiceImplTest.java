@@ -24,23 +24,43 @@ class ProductServiceImplTest {
 
     private static Product product1;
     private static Product product2;
+    private static Product product3;
+    private static Product product4;
+    private static Product product5;
+    private static Product product6;
 
 
     @BeforeAll
     static void setUp() {
         product1 = ProductData.getBuiltProduct1();
-        product2 = ProductData.getBuiltProduct4();
+        product2 = ProductData.getBuiltProduct2();
+        product3 = ProductData.getBuiltProduct3();
+        product4 = ProductData.getBuiltProduct4();
+        product5 = ProductData.getBuiltProduct5();
+        product6 = ProductData.getBuiltProduct6();
     }
 
 
     @Test
     void create() {
-        Product productcreated1 = productServiceImpl.create(product1);
-        Product productcreated2 = productServiceImpl.create(product2);
-        assertNotNull(productcreated1);
-        assertNotNull(productcreated2);
-        System.out.println(productcreated1);
-        System.out.println(productcreated2);
+        Product productCreated1 = productServiceImpl.create(product1);
+        Product productCreated2 = productServiceImpl.create(product2);
+        Product productCreated3 = productServiceImpl.create(product3);
+        Product productCreated4 = productServiceImpl.create(product4);
+        Product productCreated5 = productServiceImpl.create(product5);
+        Product productCreated6 = productServiceImpl.create(product6);
+        assertNotNull(productCreated1);
+        assertNotNull(productCreated2);
+        assertNotNull(productCreated3);
+        assertNotNull(productCreated4);
+        assertNotNull(productCreated5);
+        assertNotNull(productCreated6);
+        System.out.println(productCreated1);
+        System.out.println(productCreated2);
+        System.out.println(productCreated3);
+        System.out.println(productCreated4);
+        System.out.println(productCreated5);
+        System.out.println(productCreated6);
     }
 
     @Test

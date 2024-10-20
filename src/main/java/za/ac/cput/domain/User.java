@@ -23,7 +23,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // Optional relationship to products, bidirectional but not enforced strictly
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Product> products = new HashSet<>();
 
     //private Set<Service> services = new HashSet<>();>

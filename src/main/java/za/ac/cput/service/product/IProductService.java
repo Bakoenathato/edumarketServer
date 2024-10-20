@@ -9,4 +9,6 @@ import java.util.List;
 public interface IProductService extends IService<Product, Long> {
 
     List<Product> getAll();
+
+    Product createProductForUser(Product product, Long userId);
 }

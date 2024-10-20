@@ -2,9 +2,12 @@ package za.ac.cput.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import za.ac.cput.domain.Product;
 import za.ac.cput.domain.User;
 import za.ac.cput.dto.LoginDTO;
 import za.ac.cput.dto.LoginResponse;
+import za.ac.cput.repository.ProductRepository;
 import za.ac.cput.repository.UserRepository;
 
 import java.util.List;
@@ -15,9 +18,12 @@ public class UserServiceImpl implements IUserService {
 
     private final UserRepository userRepository;
 
+    private final ProductRepository productRepository;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, ProductRepository productRepository) {
         this.userRepository = userRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -33,6 +39,7 @@ public class UserServiceImpl implements IUserService {
         return userRepository.findById(userId).orElseThrow(()->new IllegalArgumentException("User not found"));
     }
 
+    @Transactional
     @Override
     public User update(User user) {
         if (userRepository.existsById(user.getUserId())) {
@@ -55,6 +62,13 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public List<Product> getProductsByUserId(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        return productRepository.findProductsByUser(user);
+    }
+
+    @Override
     public List<User> getAll() {
         return userRepository.findAll();
     }
@@ -68,6 +82,8 @@ public class UserServiceImpl implements IUserService {
     public User findByFirstName(String firstName) {
         return userRepository.findByFirstName(firstName);
     }
+
+
 
     public LoginResponse loginUser(LoginDTO loginDTO) {
         User user1 = userRepository.findByEmail(loginDTO.getEmail());
