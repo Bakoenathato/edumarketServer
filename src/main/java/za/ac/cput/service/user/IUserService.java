@@ -1,5 +1,6 @@
 package za.ac.cput.service.user;
 
+import za.ac.cput.domain.Product;
 import za.ac.cput.domain.User;
 import za.ac.cput.service.IService;
 
@@ -11,4 +12,6 @@ public interface IUserService extends IService<User, Long> {
     User findByEmail(String email);
 
     User findByFirstName(String firstName);
+
+    List<Product> getProductsByUserId(Long userId);
 }

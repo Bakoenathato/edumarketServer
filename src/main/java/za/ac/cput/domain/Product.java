@@ -27,11 +27,11 @@ public class Product {
     private Categories category;
 
     @Enumerated(EnumType.STRING)
-    private Condition condition;
+    private Condition productCondition ;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
-    private User user;
+    @JoinColumn(name = "userId", nullable = true)
+    private User user; // Product can exist without a User
 
     protected Product() {}
 
@@ -44,7 +44,7 @@ public class Product {
         this.category = builder.category;
         this.user = builder.user;
         this.quantity = builder.quantity;
-        this.condition = builder.condition;
+        this.productCondition  = builder.productCondition ;
     }
 
     public long getId() {
@@ -79,8 +79,8 @@ public class Product {
         return quantity;
     }
 
-    public Condition getCondition() {
-        return condition;
+    public Condition getProductCondition() {
+        return productCondition;
     }
 
     @Override
@@ -88,12 +88,12 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id == product.id && Double.compare(productPrice, product.productPrice) == 0 && quantity == product.quantity && Objects.equals(productName, product.productName) && Objects.equals(productDescription, product.productDescription) && Objects.deepEquals(productImage, product.productImage) && category == product.category && condition == product.condition && Objects.equals(user, product.user);
+        return id == product.id && Double.compare(productPrice, product.productPrice) == 0 && quantity == product.quantity && Objects.equals(productName, product.productName) && Objects.equals(productDescription, product.productDescription) && Objects.deepEquals(productImage, product.productImage) && category == product.category && productCondition == product.productCondition && Objects.equals(user, product.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productName, productDescription, productPrice, quantity, Arrays.hashCode(productImage), category, condition, user);
+        return Objects.hash(id, productName, productDescription, productPrice, quantity, Arrays.hashCode(productImage), category, productCondition, user);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class Product {
                 ", quantity=" + quantity +
                 ", productImage=" + Arrays.toString(productImage) +
                 ", category=" + category +
-                ", condition=" + condition +
+                ", productCondition=" + productCondition +
                 ", user=" + user +
                 '}';
     }
@@ -120,7 +120,7 @@ public class Product {
         private Categories category;
         private User user;
         private int quantity;
-        private Condition condition;
+        private Condition productCondition ;
 
         public Builder setId(long id) {
             this.id = id;
@@ -157,8 +157,8 @@ public class Product {
             return this;
         }
 
-        public Builder setCondition(Condition condition) {
-            this.condition = condition;
+        public Builder setProductCondition(Condition productCondition ) {
+            this.productCondition  = productCondition ;
             return this;
         }
 
@@ -176,7 +176,7 @@ public class Product {
             this.category = product.category;
             this.user = product.user;
             this.quantity = product.quantity;
-            this.condition = product.condition;
+            this.productCondition  = product.productCondition ;
             return this;
         }
 
