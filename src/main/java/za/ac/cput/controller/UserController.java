@@ -50,5 +50,14 @@ public class UserController {
         LoginResponse loginResponse = userServiceImpl.loginUser(loginDTO);
         return ResponseEntity.ok(loginResponse);
     }
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<Void> delete(@PathVariable Long userId) {
+        try {
+            userServiceImpl.delete(userId); // Assuming this service method deletes the user
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // Return 204 if successful
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Return 404 if the user is not found
+        }
+    }
 
 }
