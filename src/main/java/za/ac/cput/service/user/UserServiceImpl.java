@@ -46,7 +46,7 @@ public class UserServiceImpl implements IUserService {
             return userRepository.save(user);
         }
         else {
-            throw new IllegalArgumentException("User not found");
+            throw new IllegalArgumentException("User not found with id:" + user.getUserId());
         }
     }
 
