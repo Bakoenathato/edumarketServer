@@ -27,7 +27,6 @@ class UserServiceImplTest {
                 .setPhone("+27 722262597")
                 .setResidence("NMJ")
                 .setRole(Role.ADMIN)
-//                .setProducts()
                 .build();
 
         user2 = new User.Builder()
@@ -38,18 +37,17 @@ class UserServiceImplTest {
                 .setPhone("+27 722262597")
                 .setResidence("NMJ")
                 .setRole(Role.USER)
-//                .setProducts(null)
                 .build();
     }
 
     @Test
     void create() {
-//        User userCreated1 = userServiceImpl.create(user1);
-//        assertNotNull(userCreated1);
-        User userCreated2 = userServiceImpl.create(user2);
-        assertNotNull(userCreated2);
-//        System.out.println(userCreated1);
-        System.out.println(userCreated2);
+        User userCreated1 = userServiceImpl.create(user1);
+        assertNotNull(userCreated1);
+//        User userCreated2 = userServiceImpl.create(user2);
+//        assertNotNull(userCreated2);
+        System.out.println(userCreated1);
+//        System.out.println(userCreated2);
     }
 
     @Test

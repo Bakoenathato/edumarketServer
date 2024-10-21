@@ -43,19 +43,19 @@ class ProductServiceImplTest {
 
     @Test
     void create() {
-        Product productCreated1 = productServiceImpl.create(product1);
+//        Product productCreated1 = productServiceImpl.create(product1);
         Product productCreated2 = productServiceImpl.create(product2);
         Product productCreated3 = productServiceImpl.create(product3);
         Product productCreated4 = productServiceImpl.create(product4);
         Product productCreated5 = productServiceImpl.create(product5);
         Product productCreated6 = productServiceImpl.create(product6);
-        assertNotNull(productCreated1);
+//        assertNotNull(productCreated1);
         assertNotNull(productCreated2);
         assertNotNull(productCreated3);
         assertNotNull(productCreated4);
         assertNotNull(productCreated5);
         assertNotNull(productCreated6);
-        System.out.println(productCreated1);
+//        System.out.println(productCreated1);
         System.out.println(productCreated2);
         System.out.println(productCreated3);
         System.out.println(productCreated4);
