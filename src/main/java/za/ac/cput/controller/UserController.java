@@ -34,6 +34,12 @@ public class UserController {
         return userServiceImpl.read(userId);
     }
 
+    @PutMapping("/update/{userId}")
+    public ResponseEntity<User> update(@RequestBody User userId){
+        User updatedUser = userServiceImpl.update(userId);
+        return ResponseEntity.ok(updatedUser);
+    }
+
     @GetMapping("/getall")
     public List<User> getall(){
         return userServiceImpl.getAll();
